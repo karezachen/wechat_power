@@ -1,20 +1,18 @@
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+import hashlib
 
 @csrf_exempt
 def index(request):
 
-    # 获取请求中携带的字典
-    data = request.GET
-
-    # 解析字典
-    signature = data.get('signature')
-    timestamp = data.get('timestamp')
-    nonce = data.get('nonce')
-    echostr = data.get('echostr')
+    # 解析参数
+    signature = request.GET.get('signature')
+    echostr = request.GET.get('echostr')
+    timestamp = request.GET.get('timestamp')
+    nonce = request.GET.get('nonce')
 
     # 公众号网页后台填写的 token 值
-    token = "xxx"
+    token = 'xxx'
 
     # 数据加密
     list = [token, timestamp, nonce]
